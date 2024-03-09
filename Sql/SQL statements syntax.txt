@@ -1,0 +1,137 @@
+  SQL SUB-LANGUAGES/STATEMENTS/COMMANDS
+  -------------------------------------
+=====================================================================================================================================================                                                 
+DDL(DATA DEFINITION LANGUAGE):
+------------------------------
+
+1)CREATE: create statement is used to create a table in the database.
+---------
+SYNTAX: create table tablename
+        (colname1 datatype(size) constraint(s),
+         colname2 datatype(size) constraint(s),
+         .....................................
+         .....................................
+         colnameN datatype(size) constraint(s));
+
+syntax for adding foreign key column:
+
+columnname datatype(size),
+foreign key(fkcolname) references parentable(pkcolname);
+
+
+To copy the data from one table to another:
+------------------------------------------
+SYNTAX: create table newtablename
+        as
+        select * from tablename;
+
+
+2)ALTER: Alter statement is used to modify the table w.r.t columns.
+--------
+ADDING A COLUMN:
+
+alter table tablename
+add colname datatype constraint(s);
+
+RENAME A COLUMN:
+
+alter table tablename
+rename column old colname to new colname;
+
+DELETE A COLUMN:
+
+alter table tablename
+drop column colname;
+
+
+3)RENAME: Rename statement is used to rename a table.
+---------
+SYNTAX: rename oldtablename to newtablename; 
+
+
+4.TRUNCATE: Truncate is used to remove all records of a table at one shot. Truncate makes a table empty. Truncate will not remove 
+-----------
+the table from database instead it removes records from table.
+
+syntax: truncate table tablename;
+
+
+5)DROP: Drop statement is used to remove a table from database.
+------
+SYNTAX: drop table tablename;
+
+-->IF DROP is applied on table, the table will be removed from database and gets stored in recyclebin. 
+To restore the table from recyclebin to database,we use flashback.
+
+flashback table tablename to before drop;
+
+-->To delete the table from the recyclebin ,
+
+purge table tablename; 
+
+-->To remove the table permanently from the database without storing in BIN ,
+ 
+drop table tablename purge;
+
+===================================================================================================================================================
+
+DML (DATA MANIPULATION LANGUAGE)
+--------------------------------
+
+1)INSERT: INSERT statement is used to add records into the table.
+---------
+SYNTAX: insert into tableName values(v1,v2,v3…);
+        or 
+        insert into tableName (colname1,colname2,…...) values(v1,v2,….);
+
+
+2.UPDATE: UPDATE is used to update existing data in a table.
+--------
+SYNTAX: update tablename
+	set colname=value
+        where condition(s);
+        or
+        update tablename
+        set colname=VALUE,colname=value..
+	where condition(s);
+
+3)DELETE: DELETE is used to remove particular records from a table.
+---------
+SYNTAX:delete from tablename
+       where condition(s);
+
+
+NOTE:ALL the operations performed using DDL commands are permanent.
+-----ALL the operations performed using DML commands are not permanent.
+
+================================================================================================================================================
+
+TCL(TRANSACTION CONTROL LANGAUGE): Since all the DML operations are not permanent, it can be saved permanently using TCL
+---------------------------------	
+1)ROLLBACK: Rollback statement is used to undo/delete all the DML operations.
+-----------
+SYNTAX: rollback;
+
+2)COMMIT:Commit statement is used to save all the DML operations permanently.
+--------
+SYNTAX: commit;
+
+3)SAVEPOINT: Savepoint is a name given for a dml operation. it is used to fetch a particular dml operation.
+------------
+SYNTAX: savepoint savepointname;
+================================================================================================================================================
+
+DCL (DATA CONTROL LANGUAGE):
+--------------------------- 
+DCL is mainly used to provide a permission or to take back a permission for accessing  data from one database to another.
+
+1)GRANT: Grant  is mainly used to provide permission for accessing the data from one database to another.
+--------
+SYNTAX: grant permissiontype on tablename to username;
+
+2)REVOKE: Revoke is mainly used to take back the permission for accessing the data from one database to another.
+---------
+SYNTAX: revoke permissiontype on tablename from username;
+
+
+

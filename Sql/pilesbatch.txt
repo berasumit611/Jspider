@@ -1,0 +1,1249 @@
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID                                                   
+------------------------------ ------- ----------                                                   
+BONUS                          TABLE                                                                
+DEPT                           TABLE                                                                
+EMP                            TABLE                                                                
+SALGRADE                       TABLE                                                                
+
+SQL> create table drinks
+  2  (did number(2) not null unique,
+  3  dname varchar(15) not null,
+  4  price number(5) not null);
+
+Table created.
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID                                                   
+------------------------------ ------- ----------                                                   
+BONUS                          TABLE                                                                
+DEPT                           TABLE                                                                
+DRINKS                         TABLE                                                                
+EMP                            TABLE                                                                
+SALGRADE                       TABLE                                                                
+
+SQL> select * from drinks;
+
+no rows selected
+
+SQL> create table bars
+  2  (bid number(2) primary key,
+  3  bname varchar(15) not null,
+  4  did number(2),
+  5  foreign key(did) references drinks(did));
+
+Table created.
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID                                                   
+------------------------------ ------- ----------                                                   
+BARS                           TABLE                                                                
+BONUS                          TABLE                                                                
+DEPT                           TABLE                                                                
+DRINKS                         TABLE                                                                
+EMP                            TABLE                                                                
+SALGRADE                       TABLE                                                                
+
+6 rows selected.
+
+SQL> select * from bars;
+
+no rows selected
+
+SQL> select * from emp;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20               
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30               
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30               
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20               
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30               
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30               
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10               
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20               
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10               
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30               
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20               
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30               
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20               
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10               
+
+14 rows selected.
+
+SQL> create table empcopy
+  2  as
+  3  select *
+  4  from emp;
+
+Table created.
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID                                                   
+------------------------------ ------- ----------                                                   
+BARS                           TABLE                                                                
+BONUS                          TABLE                                                                
+DEPT                           TABLE                                                                
+DRINKS                         TABLE                                                                
+EMP                            TABLE                                                                
+EMPCOPY                        TABLE                                                                
+SALGRADE                       TABLE                                                                
+
+7 rows selected.
+
+SQL> select * from empcopy;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20               
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30               
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30               
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20               
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30               
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30               
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10               
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20               
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10               
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30               
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20               
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30               
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20               
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10               
+
+14 rows selected.
+
+SQL> create table empdup
+  2  as
+  3  select * from emp;
+
+Table created.
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID                                                   
+------------------------------ ------- ----------                                                   
+BARS                           TABLE                                                                
+BONUS                          TABLE                                                                
+DEPT                           TABLE                                                                
+DRINKS                         TABLE                                                                
+EMP                            TABLE                                                                
+EMPCOPY                        TABLE                                                                
+EMPDUP                         TABLE                                                                
+SALGRADE                       TABLE                                                                
+
+8 rows selected.
+
+SQL> select * from empdup;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20               
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30               
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30               
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20               
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30               
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30               
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10               
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20               
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10               
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30               
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20               
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30               
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20               
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10               
+
+14 rows selected.
+
+SQL> desc drinks;
+ Name                                                  Null?    Type
+ ----------------------------------------------------- -------- ------------------------------------
+ DID                                                   NOT NULL NUMBER(2)
+ DNAME                                                 NOT NULL VARCHAR2(15)
+ PRICE                                                 NOT NULL NUMBER(5)
+
+SQL> alter table drinks
+  2  add quantity varchar(5) not null;
+
+Table altered.
+
+SQL> desc drinks;
+ Name                                                  Null?    Type
+ ----------------------------------------------------- -------- ------------------------------------
+ DID                                                   NOT NULL NUMBER(2)
+ DNAME                                                 NOT NULL VARCHAR2(15)
+ PRICE                                                 NOT NULL NUMBER(5)
+ QUANTITY                                              NOT NULL VARCHAR2(5)
+
+SQL> alter table drinks
+  2  rename column price to mrp;
+
+Table altered.
+
+SQL> desc drinks;
+ Name                                                  Null?    Type
+ ----------------------------------------------------- -------- ------------------------------------
+ DID                                                   NOT NULL NUMBER(2)
+ DNAME                                                 NOT NULL VARCHAR2(15)
+ MRP                                                   NOT NULL NUMBER(5)
+ QUANTITY                                              NOT NULL VARCHAR2(5)
+
+SQL> alter table drinks
+  2  drop column quantity;
+
+Table altered.
+
+SQL> desc drinks;
+ Name                                                  Null?    Type
+ ----------------------------------------------------- -------- ------------------------------------
+ DID                                                   NOT NULL NUMBER(2)
+ DNAME                                                 NOT NULL VARCHAR2(15)
+ MRP                                                   NOT NULL NUMBER(5)
+
+SQL> rename drinks  to daaru;
+
+Table renamed.
+
+SQL> select * from empdup;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20               
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30               
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30               
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20               
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30               
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30               
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10               
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20               
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10               
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30               
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20               
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30               
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20               
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10               
+
+14 rows selected.
+
+SQL> truncate table empdup;
+
+Table truncated.
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID                                                   
+------------------------------ ------- ----------                                                   
+BARS                           TABLE                                                                
+BONUS                          TABLE                                                                
+DAARU                          TABLE                                                                
+DEPT                           TABLE                                                                
+EMP                            TABLE                                                                
+EMPCOPY                        TABLE                                                                
+EMPDUP                         TABLE                                                                
+SALGRADE                       TABLE                                                                
+
+8 rows selected.
+
+SQL> select * from empdup;
+
+no rows selected
+
+SQL> drop table empdup;
+
+Table dropped.
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID                                                   
+------------------------------ ------- ----------                                                   
+BARS                           TABLE                                                                
+BIN$n2io3SxWS6iOiGtuCzAceA==$0 TABLE                                                                
+BONUS                          TABLE                                                                
+DAARU                          TABLE                                                                
+DEPT                           TABLE                                                                
+EMP                            TABLE                                                                
+EMPCOPY                        TABLE                                                                
+SALGRADE                       TABLE                                                                
+
+8 rows selected.
+
+SQL> show recyclebin;
+ORIGINAL NAME    RECYCLEBIN NAME                OBJECT TYPE  DROP TIME                              
+---------------- ------------------------------ ------------ -------------------                    
+EMPDUP           BIN$n2io3SxWS6iOiGtuCzAceA==$0 TABLE        2024-02-17:14:27:56                    
+SQL> flashback table empdup to before drop;
+
+Flashback complete.
+
+SQL> show recyclebin;
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID                                                   
+------------------------------ ------- ----------                                                   
+BARS                           TABLE                                                                
+BONUS                          TABLE                                                                
+DAARU                          TABLE                                                                
+DEPT                           TABLE                                                                
+EMP                            TABLE                                                                
+EMPCOPY                        TABLE                                                                
+EMPDUP                         TABLE                                                                
+SALGRADE                       TABLE                                                                
+
+8 rows selected.
+
+SQL> drop table empcopy;
+
+Table dropped.
+
+SQL> drop table empdup purge;
+
+Table dropped.
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID                                                   
+------------------------------ ------- ----------                                                   
+BARS                           TABLE                                                                
+BIN$oHX3EExwRneEfgNXgbe0sw==$0 TABLE                                                                
+BONUS                          TABLE                                                                
+DAARU                          TABLE                                                                
+DEPT                           TABLE                                                                
+EMP                            TABLE                                                                
+SALGRADE                       TABLE                                                                
+
+7 rows selected.
+
+SQL> flashback table empcopy to before drop;
+
+Flashback complete.
+
+SQL> select
+  2  * from empcopy;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20               
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30               
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30               
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20               
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30               
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30               
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10               
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20               
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10               
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30               
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20               
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30               
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20               
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10               
+
+14 rows selected.
+
+SQL> drop table empcopy;
+
+Table dropped.
+
+SQL> show recyclebin;
+ORIGINAL NAME    RECYCLEBIN NAME                OBJECT TYPE  DROP TIME                              
+---------------- ------------------------------ ------------ -------------------                    
+EMPCOPY          BIN$ror1Cd4cT46Xais/wHSWeA==$0 TABLE        2024-02-17:14:32:36                    
+SQL> purge table empcopy;
+
+Table purged.
+
+SQL> show recyclebin;
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID                                                   
+------------------------------ ------- ----------                                                   
+BARS                           TABLE                                                                
+BONUS                          TABLE                                                                
+DAARU                          TABLE                                                                
+DEPT                           TABLE                                                                
+EMP                            TABLE                                                                
+SALGRADE                       TABLE                                                                
+
+6 rows selected.
+
+SQL> insert into daaru values(1,'BP',1250);
+
+1 row created.
+
+SQL> select *  from daaru;
+
+       DID DNAME                  MRP                                                               
+---------- --------------- ----------                                                               
+         1 BP                    1250                                                               
+
+SQL> insert into daaru values(1,'oc',1250);
+insert into daaru values(1,'oc',1250)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SCOTT.SYS_C0012158) violated 
+
+
+SQL> insert into daaru values(2,'oc',1250);
+
+1 row created.
+
+SQL> select *  from daaru;
+
+       DID DNAME                  MRP                                                               
+---------- --------------- ----------                                                               
+         1 BP                    1250                                                               
+         2 oc                    1250                                                               
+
+SQL> insert into daaru values(3,'magicmoment',720);
+
+1 row created.
+
+SQL> select *  from daaru;
+
+       DID DNAME                  MRP                                                               
+---------- --------------- ----------                                                               
+         1 BP                    1250                                                               
+         2 oc                    1250                                                               
+         3 magicmoment            720                                                               
+
+SQL> update daaru
+  2  set mrp=300
+  3  where did=2;
+
+1 row updated.
+
+SQL> select *  from daaru;
+
+       DID DNAME                  MRP                                                               
+---------- --------------- ----------                                                               
+         1 BP                    1250                                                               
+         2 oc                     300                                                               
+         3 magicmoment            720                                                               
+
+SQL> update daaru
+  2  set mrp=300;
+
+3 rows updated.
+
+SQL> select *  from daaru;
+
+       DID DNAME                  MRP                                                               
+---------- --------------- ----------                                                               
+         1 BP                     300                                                               
+         2 oc                     300                                                               
+         3 magicmoment            300                                                               
+
+SQL> delete from daaru
+  2  where did=2;
+
+1 row deleted.
+
+SQL> select *  from daaru;
+
+       DID DNAME                  MRP                                                               
+---------- --------------- ----------                                                               
+         1 BP                     300                                                               
+         3 magicmoment            300                                                               
+
+SQL> delete from daaru ;
+
+2 rows deleted.
+
+SQL> select *  from daaru;
+
+no rows selected
+
+SQL> insert into daaru values(1,'BP',1250);
+
+1 row created.
+
+SQL> insert into daaru values(2,'oc',1250);
+
+1 row created.
+
+SQL> insert into daaru values(3,'magicmoment',720);
+
+1 row created.
+
+SQL> select *  from daaru;
+
+       DID DNAME                  MRP                                                               
+---------- --------------- ----------                                                               
+         1 BP                    1250                                                               
+         2 oc                    1250                                                               
+         3 magicmoment            720                                                               
+
+SQL> spool off;
+
+SQL*Plus: Release 11.2.0.1.0 Production on Sat Feb 17 15:01:44 2024
+
+Copyright (c) 1982, 2010, Oracle.  All rights reserved.
+
+Enter user-name: scott
+Enter password:
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+
+SQL> set lines 100 pages 100;
+SQL> select * from daaru;
+
+no rows selected
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+BARS                           TABLE
+BONUS                          TABLE
+DAARU                          TABLE
+DEPT                           TABLE
+EMP                            TABLE
+SALGRADE                       TABLE
+
+6 rows selected.
+
+SQL> insert into daaru values(1,'a',100);
+
+1 row created.
+
+SQL> insert into daaru values(2,'b',200);
+
+1 row created.
+
+SQL> insert into daaru values(3,'c',300);
+
+1 row created.
+
+SQL> select * from daaru;
+
+       DID DNAME                  MRP
+---------- --------------- ----------
+         1 a                      100
+         2 b                      200
+         3 c                      300
+
+SQL> update daaru
+  2  set dname='o'
+  3  where did=2;
+
+1 row updated.
+
+SQL> select * from daaru;
+
+       DID DNAME                  MRP
+---------- --------------- ----------
+         1 a                      100
+         2 o                      200
+         3 c                      300
+
+SQL> delete from daaru
+  2  where did=3;
+
+1 row deleted.
+
+SQL> select * from daaru;
+
+       DID DNAME                  MRP
+---------- --------------- ----------
+         1 a                      100
+         2 o                      200
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select * from daaru;
+
+no rows selected
+
+SQL> insert into daaru values(1,'a',100);
+
+1 row created.
+
+SQL> insert into daaru values(2,'b',200);
+
+1 row created.
+
+SQL> insert into daaru values(3,'c',300);
+
+1 row created.
+
+SQL> savepoint a;
+
+Savepoint created.
+
+SQL> update daaru
+  2  set dname='o'
+  3  where did=2;
+
+1 row updated.
+
+SQL> savepoint b;
+
+Savepoint created.
+
+SQL> delete from daaru
+  2  where did=3;
+
+1 row deleted.
+
+SQL> savepoint c;
+
+Savepoint created.
+
+SQL> rollback to c;
+
+Rollback complete.
+
+SQL> select * from daaru;
+
+       DID DNAME                  MRP
+---------- --------------- ----------
+         1 a                      100
+         2 o                      200
+
+SQL> rollback to b;
+
+Rollback complete.
+
+SQL> select * from daaru;
+
+       DID DNAME                  MRP
+---------- --------------- ----------
+         1 a                      100
+         2 o                      200
+         3 c                      300
+
+SQL> rollback to a;
+
+Rollback complete.
+
+SQL> rollback to a;
+
+Rollback complete.
+
+SQL> select * from daaru;
+
+       DID DNAME                  MRP
+---------- --------------- ----------
+         1 a                      100
+         2 b                      200
+         3 c                      300
+
+SQL> rollback to b;
+rollback to b
+*
+ERROR at line 1:
+ORA-01086: savepoint 'B' never established in this session or is invalid
+
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select * from daaru;
+
+no rows selected
+
+SQL> insert into daaru values(1,'a',100);
+
+1 row created.
+
+SQL> insert into daaru values(2,'b',200);
+
+1 row created.
+
+SQL> insert into daaru values(3,'c',300);
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> update daaru
+  2  set dname='o'
+  3  where did=2;
+
+1 row updated.
+
+SQL> delete from daaru
+  2  where did=3;
+
+1 row deleted.
+
+SQL> select * from daaru;
+
+       DID DNAME                  MRP
+---------- --------------- ----------
+         1 a                      100
+         2 o                      200
+
+SQL> rollback ;
+
+Rollback complete.
+
+SQL> select * from daaru;
+
+       DID DNAME                  MRP
+---------- --------------- ----------
+         1 a                      100
+         2 b                      200
+         3 c                      300
+
+SQL>
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+BARS                           TABLE
+BONUS                          TABLE
+DAARU                          TABLE
+DEPT                           TABLE
+EMP                            TABLE
+SALGRADE                       TABLE
+
+6 rows selected.
+
+SQL> conn
+Enter user-name: hr
+Enter password:
+Connected.
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+COUNTRIES                      TABLE
+DEPARTMENTS                    TABLE
+EMPLOYEES                      TABLE
+EMP_DETAILS_VIEW               VIEW
+JOBS                           TABLE
+JOB_HISTORY                    TABLE
+LOCATIONS                      TABLE
+REGIONS                        TABLE
+
+8 rows selected.
+
+SQL> select * from regions;
+
+ REGION_ID REGION_NAME
+---------- -------------------------
+         1 Europe
+         2 Americas
+         3 Asia
+         4 Middle East and Africa
+
+SQL> conn
+Enter user-name: scott
+Enter password:
+Connected.
+SQL> select * from regions;
+select * from regions
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> conn
+Enter user-name: hr
+Enter password:
+Connected.
+SQL> grant select on regions to scott;
+
+Grant succeeded.
+
+SQL> conn
+Enter user-name: scott
+Enter password:
+Connected.
+SQL> select * from regions;
+select * from regions
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> select * from hr.regions;
+
+ REGION_ID REGION_NAME
+---------- -------------------------
+         1 Europe
+         2 Americas
+         3 Asia
+         4 Middle East and Africa
+
+SQL> conn
+Enter user-name: hr
+Enter password:
+Connected.
+SQL> revoke select on regions from scott;
+
+Revoke succeeded.
+
+SQL> conn
+Enter user-name: scott
+Enter password:
+Connected.
+SQL> select * from hr.regions;
+select * from hr.regions
+                 *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> select * from emp;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+      7369 SMITH      CLERK           7902 17-DEC-80        800
+    20
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300
+    30
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500
+    30
+      7566 JONES      MANAGER         7839 02-APR-81       2975
+    20
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400
+    30
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850
+    30
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450
+    10
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000
+    20
+      7839 KING       PRESIDENT            17-NOV-81       5000
+    10
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0
+    30
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100
+    20
+      7900 JAMES      CLERK           7698 03-DEC-81        950
+    30
+      7902 FORD       ANALYST         7566 03-DEC-81       3000
+    20
+      7934 MILLER     CLERK           7782 23-JAN-82       1300
+    10
+
+14 rows selected.
+
+SQL> set lines 1000 pages 1000;
+SQL> select * from emp;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+      7369 SMITH      CLERK           7902 17-DEC-80        800
+    20
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300
+    30
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500
+    30
+      7566 JONES      MANAGER         7839 02-APR-81       2975
+    20
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400
+    30
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850
+    30
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450
+    10
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000
+    20
+      7839 KING       PRESIDENT            17-NOV-81       5000
+    10
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0
+    30
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100
+    20
+      7900 JAMES      CLERK           7698 03-DEC-81        950
+    30
+      7902 FORD       ANALYST         7566 03-DEC-81       3000
+    20
+      7934 MILLER     CLERK           7782 23-JAN-82       1300
+    10
+
+14 rows selected.
+
+SQL>
+SQL> select * from emp;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10
+
+14 rows selected.
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+BARS                           TABLE
+BONUS                          TABLE
+DAARU                          TABLE
+DEPT                           TABLE
+EMP                            TABLE
+SALGRADE                       TABLE
+
+6 rows selected.
+
+SQL> create view chottu
+  2  as
+  3  select empno,ename,mgr,job,hiredate,deptno
+  4  from emp;
+
+View created.
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+BARS                           TABLE
+BONUS                          TABLE
+CHOTTU                         VIEW
+DAARU                          TABLE
+DEPT                           TABLE
+EMP                            TABLE
+SALGRADE                       TABLE
+
+7 rows selected.
+
+SQL> select * from chottu;
+
+     EMPNO ENAME             MGR JOB       HIREDATE      DEPTNO
+---------- ---------- ---------- --------- --------- ----------
+      7369 SMITH            7902 CLERK     17-DEC-80         20
+      7499 ALLEN            7698 SALESMAN  20-FEB-81         30
+      7521 WARD             7698 SALESMAN  22-FEB-81         30
+      7566 JONES            7839 MANAGER   02-APR-81         20
+      7654 MARTIN           7698 SALESMAN  28-SEP-81         30
+      7698 BLAKE            7839 MANAGER   01-MAY-81         30
+      7782 CLARK            7839 MANAGER   09-JUN-81         10
+      7788 SCOTT            7566 ANALYST   19-APR-87         20
+      7839 KING                  PRESIDENT 17-NOV-81         10
+      7844 TURNER           7698 SALESMAN  08-SEP-81         30
+      7876 ADAMS            7788 CLERK     23-MAY-87         20
+      7900 JAMES            7698 CLERK     03-DEC-81         30
+      7902 FORD             7566 ANALYST   03-DEC-81         20
+      7934 MILLER           7782 CLERK     23-JAN-82         10
+
+14 rows selected.
+
+SQL> create view mottu
+  2  as
+  3  select ename,dname
+  4  from emp,dept
+  5  where emp.deptno=dept.deptno;
+
+View created.
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+BARS                           TABLE
+BONUS                          TABLE
+CHOTTU                         VIEW
+DAARU                          TABLE
+DEPT                           TABLE
+EMP                            TABLE
+MOTTU                          VIEW
+SALGRADE                       TABLE
+
+8 rows selected.
+
+SQL> select * from mottu;
+
+ENAME      DNAME
+---------- --------------
+CLARK      ACCOUNTING
+KING       ACCOUNTING
+MILLER     ACCOUNTING
+JONES      RESEARCH
+FORD       RESEARCH
+ADAMS      RESEARCH
+SMITH      RESEARCH
+SCOTT      RESEARCH
+WARD       SALES
+TURNER     SALES
+ALLEN      SALES
+JAMES      SALES
+BLAKE      SALES
+MARTIN     SALES
+
+14 rows selected.
+
+SQL> select upper('vishwanath') from dual;
+
+UPPER('VIS
+----------
+VISHWANATH
+
+SQL> SELECT LOWER('VISHWANATH') FROM DUAL;
+
+LOWER('VIS
+----------
+vishwanath
+
+SQL> select ename
+  2  from emp
+  3  where lower(job)='salesman';
+
+ENAME
+----------
+ALLEN
+WARD
+MARTIN
+TURNER
+
+SQL> select ename
+  2  from emp
+  3  where upper(job)='SALESMAN';
+
+ENAME
+----------
+ALLEN
+WARD
+MARTIN
+TURNER
+
+SQL> SELECT INITCAP('VISHWANATH') FROM DUAL;
+
+INITCAP('V
+----------
+Vishwanath
+
+SQL> SELECT LENGTH('VISHWANATH') FROM DUAL;
+
+LENGTH('VISHWANATH')
+--------------------
+                  10
+
+SQL> SELECT ENAME
+  2  FROM EMP
+  3  WHERE LENGTH(ENAME)=5;
+
+ENAME
+----------
+SMITH
+ALLEN
+JONES
+BLAKE
+CLARK
+SCOTT
+ADAMS
+JAMES
+
+8 rows selected.
+
+SQL> SELECT CONCAT('VISHWANATH','BENKILATHA') FROM DUAL;
+
+CONCAT('VISHWANATH',
+--------------------
+VISHWANATHBENKILATHA
+
+SQL> SELECT 'VISHWANATH  '||' LOVES'||' BENKILATHA' FROM DUAL;
+
+'VISHWANATH'||'LOVES'||'BENKI
+-----------------------------
+VISHWANATH   LOVES BENKILATHA
+
+SQL> SELECT 'VISHWANATH'||' LOVES'||' BENKILATHA' FROM DUAL;
+
+'VISHWANATH'||'LOVES'||'BEN
+---------------------------
+VISHWANATH LOVES BENKILATHA
+
+SQL> SELECT CONCAT(ENAME,JOB) AS FULLNAME  FROM EMP;
+
+FULLNAME
+-------------------
+SMITHCLERK
+ALLENSALESMAN
+WARDSALESMAN
+JONESMANAGER
+MARTINSALESMAN
+BLAKEMANAGER
+CLARKMANAGER
+SCOTTANALYST
+KINGPRESIDENT
+TURNERSALESMAN
+ADAMSCLERK
+JAMESCLERK
+FORDANALYST
+MILLERCLERK
+
+14 rows selected.
+
+SQL> SELECT SUBSTR('DONKEY',4,3) FROM DUAL;
+
+SUB
+---
+KEY
+
+SQL> SELECT SUBSTR('DONKEY',1,3) FROM DUAL;
+
+SUB
+---
+DON
+
+SQL> SELECT SAL,COMM
+  2  FROM EMP;
+
+       SAL       COMM
+---------- ----------
+       800
+      1600        300
+      1250        500
+      2975
+      1250       1400
+      2850
+      2450
+      3000
+      5000
+      1500          0
+      1100
+       950
+      3000
+      1300
+
+14 rows selected.
+
+SQL> SELECT SAL,COMM,SAL+COMM
+  2  FROM EMP;
+
+       SAL       COMM   SAL+COMM
+---------- ---------- ----------
+       800
+      1600        300       1900
+      1250        500       1750
+      2975
+      1250       1400       2650
+      2850
+      2450
+      3000
+      5000
+      1500          0       1500
+      1100
+       950
+      3000
+      1300
+
+14 rows selected.
+
+SQL> SELECT SAL,COMM,SAL+NVL(COMM,0)
+  2  FROM EMP;
+
+       SAL       COMM SAL+NVL(COMM,0)
+---------- ---------- ---------------
+       800                        800
+      1600        300            1900
+      1250        500            1750
+      2975                       2975
+      1250       1400            2650
+      2850                       2850
+      2450                       2450
+      3000                       3000
+      5000                       5000
+      1500          0            1500
+      1100                       1100
+       950                        950
+      3000                       3000
+      1300                       1300
+
+14 rows selected.
+
+SQL> SELECT SAL,COMM,SAL+NVL(COMM,2)
+  2  FROM EMP;
+
+       SAL       COMM SAL+NVL(COMM,2)
+---------- ---------- ---------------
+       800                        802
+      1600        300            1900
+      1250        500            1750
+      2975                       2977
+      1250       1400            2650
+      2850                       2852
+      2450                       2452
+      3000                       3002
+      5000                       5002
+      1500          0            1500
+      1100                       1102
+       950                        952
+      3000                       3002
+      1300                       1302
+
+14 rows selected.
+
+SQL> SELECT HIREDATE
+  2  FROM EMP;
+
+HIREDATE
+---------
+17-DEC-80
+20-FEB-81
+22-FEB-81
+02-APR-81
+28-SEP-81
+01-MAY-81
+09-JUN-81
+19-APR-87
+17-NOV-81
+08-SEP-81
+23-MAY-87
+03-DEC-81
+03-DEC-81
+23-JAN-82
+
+14 rows selected.
+
+SQL> SELECT EXTRACT(HIREDATE FROM YEAR) FROM EMP;
+SELECT EXTRACT(HIREDATE FROM YEAR) FROM EMP
+                        *
+ERROR at line 1:
+ORA-00907: missing right parenthesis
+
+
+SQL> SELECT EXTRACT(YEAR FROM HIREDATE) FROM EMP;
+
+EXTRACT(YEARFROMHIREDATE)
+-------------------------
+                     1980
+                     1981
+                     1981
+                     1981
+                     1981
+                     1981
+                     1981
+                     1987
+                     1981
+                     1981
+                     1987
+                     1981
+                     1981
+                     1982
+
+14 rows selected.
+
+SQL> SELECT SYSDATE
+  2  FROM DUAL;
+
+SYSDATE
+---------
+17-FEB-24
+
+SQL>
