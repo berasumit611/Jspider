@@ -1,4 +1,4 @@
-### Future reference
+### Future reference:
 
 Git LFS (Large File Storage) is a Git extension that helps manage large files more efficiently by storing them outside the main Git repository. Here's a step-by-step guide on how to use Git LFS:
 
